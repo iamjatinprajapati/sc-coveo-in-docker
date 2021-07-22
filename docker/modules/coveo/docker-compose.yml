@@ -1,0 +1,22 @@
+version: "2.4"
+
+services: 
+  coveo-assets:
+    image: coveo-assets-latest
+    build:
+      context: ./coveo
+      args:
+        BASE_IMAGE: mcr.microsoft.com/windows/nanoserver:${NANOSERVER_VERSION}
+        TOOL_IMAGE: ${SITECORE_TOOLS_REGISTRY}sitecore-docker-tools-assets:10.1.0-1809
+        BASE_BUILD_IMAGE: mcr.microsoft.com/windows/servercore:${WINDOWSSERVERCORE_VERSION}
+        ROLES: cm
+
+  coveo-sxa-assets:
+    image: coveo-sxa-assets-latest
+    build:
+      context: ./coveo
+      args:
+          BASE_IMAGE: mcr.microsoft.com/windows/nanoserver:${NANOSERVER_VERSION}
+          TOOL_IMAGE: ${SITECORE_TOOLS_REGISTRY}sitecore-docker-tools-assets:10.1.0-1809
+          BASE_BUILD_IMAGE: mcr.microsoft.com/windows/servercore:${WINDOWSSERVERCORE_VERSION}
+          ROLES: cm

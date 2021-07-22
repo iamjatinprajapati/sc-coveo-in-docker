@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<connectionStrings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+	<add name="WebCluster2" connectionString="Data Source=ubuntu-sql-srv;Initial Catalog=sc101-xp0_Web;User ID=webuser;Password=ZIx8fH2IAdWUkvD63sZg" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)" />
+</connectionStrings>
