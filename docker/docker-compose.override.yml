@@ -19,15 +19,6 @@ services:
       args:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
         BUILD_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
-        COVEO_API_KEY: ${COVEO_API_KEY}
-        COVEO_API_KEY: ${COVEO_API_KEY}
-        COVEO_INDEXING_ENDPOINT_URI: ${COVEO_INDEXING_ENDPOINT_URI}
-        COVEO_ORGANIZATION_ID: ${COVEO_ORGANIZATION_ID}
-        COVEO_CLOUD_PLATFORM_URI: ${COVEO_CLOUD_PLATFORM_URI}
-        COVEO_SEARCH_API_KEY: ${COVEO_SEARCH_API_KEY}
-        COVEO_SITECORE_USERNAME: ${COVEO_SITECORE_USERNAME}
-        COVEO_SITECORE_USER_PASSWORD: ${COVEO_SITECORE_USER_PASSWORD}
-        COVEO_FARM_NAME: ${COVEO_FARM_NAME}
     depends_on:
       - dotnetsdk
     scale: 0
@@ -103,7 +94,26 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
-
+  cm-init:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm-init:${VERSION:-latest}
+    build:
+      context: ./build/cm-init
+      args:
+        PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm:${VERSION:-latest}
+    entrypoint: powershell -Command "& C:\build\activate-coveo.ps1"
+    environment:
+      sc_cm: 'http://cm'
+      COVEO_API_KEY: ${COVEO_API_KEY}
+      COVEO_ORGANIZATION_ID: ${COVEO_ORGANIZATION_ID}
+      COVEO_SEARCH_API_KEY: ${COVEO_SEARCH_API_KEY}
+      COVEO_SITECORE_USERNAME: ${COVEO_SITECORE_USERNAME}
+      COVEO_SITECORE_USER_PASSWORD: ${COVEO_SITECORE_USER_PASSWORD}
+      COVEO_FARM_NAME: ${COVEO_FARM_NAME}
+      COVEO_SCRIPT_SITECORE_USERNAME: ${COVEO_SCRIPT_SITECORE_USERNAME}
+      COVEO_SCRIPT_SITECOREPASSWORD: ${COVEO_SCRIPT_SITECOREPASSWORD}
+    depends_on:
+      cm:
+        condition: service_healthy
   cm:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm:${VERSION:-latest}
     build:
@@ -131,7 +141,6 @@ services:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
       SITECORE_ENVIRONMENT: ${SITECORE_ENVIRONMENT}
       Sitecore_JSS_ImportUser: ${JSS_IMPORT_USER:-sitecore\admin}
-      
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
     mem_limit: ${MEM_LIMIT_CM:-4GB}
     restart: always
