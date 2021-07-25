@@ -88,13 +88,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Config\Include\Coveo\Coveo.CloudPlatformClient.Custom.config" />
-    <None Include="App_Config\Include\Coveo\Coveo.SearchProvider.Custom.config" />
-    <None Include="App_Config\Include\Coveo\Coveo.SearchProvider.Rest.Custom.config" />
-    <None Include="App_Config\Modules\Coveo\Coveo.SearchProvider.config" />
-    <None Include="App_Config\Modules\Coveo\Coveo.SearchProvider.Rest.config" />
-    <None Include="App_Config\Modules\Coveo\Coveo.UI.Components.ExperienceEditor.config" />
-    <None Include="App_Config\Modules\Coveo\Coveo.UI.Controls.config" />
     <Content Include="App_Data\Coveo\ConfigurationEncryptionKeys\IndexingEncryptionKeys" />
     <None Include="Web.config" />
   </ItemGroup>
@@ -110,7 +103,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Config\Include\" />
+    <Folder Include="App_Config\Modules\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
