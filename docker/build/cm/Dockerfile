@@ -64,8 +64,6 @@ COPY --from=coveosxa \module\cm\content .\
 # Copy solution website files
 COPY --from=solution /artifacts/platform/ ./
 
-# Copy coveo files
-COPY --from=solution /artifacts/coveo/ ./
 
 # Copy solution transforms
 COPY --from=solution \artifacts\transforms\ \transforms\solution\
